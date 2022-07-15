@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        Stack<Integer> st = new Stack<>();
+        for(int i=0; i<arr.length; i++){
+            if(st.isEmpty())
+                st.push(arr[i]);
+            else{
+                if(arr[i] != st.peek()){
+                    al.add(st.pop());
+                    st.push(arr[i]);
+                }
+                else
+                    continue;
+            }
+        }
+        
+        if(!st.isEmpty())
+            al.add(st.pop());
+        
+        int []answer = new int[al.size()];
+        for(int i=0; i<al.size(); i++){
+            answer[i] = al.get(i);
+        }
+
+        return answer;
+    }
+}
