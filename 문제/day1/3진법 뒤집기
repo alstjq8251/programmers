@@ -1,0 +1,11 @@
+class Solution {
+    public int solution(int n) {
+        StringBuilder sb = new StringBuilder();
+        String s = Integer.toString(n,3);
+        sb.append(s);
+        sb.reverse();
+        String c = sb.toString();
+        int answer = Integer.parseInt(c,3);
+        return answer;
+    }
+}
