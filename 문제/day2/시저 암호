@@ -1,0 +1,49 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String s, int n) {
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        ArrayList<Character> al1 = new ArrayList<Character>();
+        ArrayList<Integer> al2 = new ArrayList<Integer>();
+        StringBuilder sb = new StringBuilder();
+        int a = 0;
+        char c= ' ';
+        
+        for(int i=0; i<s.length(); i++){
+            if(s.charAt(i) == ' ')
+                al2.add(i);
+            else
+                al.add((int)(s.charAt(i)));
+        }
+        int change_number =0;
+        for(int i=0; i<al.size(); i++){
+           change_number = al.get(i)+n;
+            if(al.get(i)>64 && al.get(i) < 91){
+                if(change_number> 90)
+                    change_number -= 26;
+                al.set(i,change_number);
+            }
+            else{
+                if(change_number> 122)
+                    change_number -= 26;
+                al.set(i,change_number);    
+            }
+        }
+        for(int i=0; i<al.size(); i++){
+            a = al.get(i);
+            c = (char)a;
+            al1.add(c);
+        }
+        for(int i=0; i<al1.size(); i++){
+            sb.append(al1.get(i));
+        }
+        for(int i=0; i<al2.size(); i++){
+            sb.insert(al2.get(i), " ");
+        }
+            
+        
+        String answer = sb.toString();
+        
+        return answer;
+    }
+}
