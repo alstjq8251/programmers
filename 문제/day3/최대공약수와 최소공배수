@@ -1,0 +1,22 @@
+class Solution {
+    public int[] solution(int n, int m) {
+        int[] answer = new int[2];
+        int max = Math.max(n,m);
+        int max1 = 0;
+        for(int i=1; i<=max; i++){
+            if(m>n){
+                if(n%i == 0)
+                    if(m%i == 0)
+                        max1 = Math.max(max1,i);
+            }
+            else{
+                if(m%i == 0)
+                    if(n%i ==0)
+                        max1 = Math.max(max1,i);
+            }
+        }
+        answer[0] = max1;
+        answer[1] = (n*m) / max1;
+        return answer;
+    }
+}
