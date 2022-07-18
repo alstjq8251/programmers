@@ -1,0 +1,70 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String new_id) {
+        Stack st = new Stack<>();
+        ArrayList<String> al = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<new_id.length(); i++){
+            int a = 0;
+            char c =' ';
+            if(new_id.charAt(i)-'0'>= 0 &&new_id.charAt(i)-'0'<10 )
+                sb.append((new_id.charAt(i)));
+            else if(new_id.charAt(i) >= 33 && new_id.charAt(i) <= 64){
+                    if(new_id.charAt(i) == 45 || new_id.charAt(i) == 46){
+                        if(new_id.charAt(i) == 45)
+                            sb.append(new_id.charAt(i));
+                        else
+                            if(new_id.charAt(i) == 46){
+                                if(i < new_id.length()-1){
+                                    if(new_id.charAt(i+1) == 46)
+                                        continue;
+                                    else
+                                        sb.append(new_id.charAt(i));
+                                }
+                                else
+                                    sb.append(new_id.charAt(i));
+                            }
+                    }
+            }
+            else if(new_id.charAt(i) >= 65 && new_id.charAt(i) <= 90){
+                a = new_id.charAt(i)+32;
+                c = (char)a;
+                sb.append(c);
+            }
+            else if(new_id.charAt(i) >=97 && new_id.charAt(i) <=122)
+                sb.append(new_id.charAt(i));
+            else if(new_id.charAt(i) == 95)
+                sb.append(new_id.charAt(i));
+        }
+        while(sb.length() >0&& sb.charAt(0) == '.'){
+            sb.deleteCharAt(0);
+        }
+        while(sb.length() >0 && sb.charAt(sb.length()-1) == '.'){
+            sb.deleteCharAt(sb.length()-1);
+        }
+        
+
+        if(sb.length() >0)
+            for(int i=0;i<sb.length()-1;i++)
+                if(sb.charAt(i) == '.')
+				    while (sb.charAt(i + 1) == '.')
+					         sb.deleteCharAt(i+1);
+
+        if(sb.length() < 1 )
+            sb.append('a');
+        if(sb.length() >= 16){
+            sb.setLength(15);
+            while(sb.charAt(sb.length()-1) == '.')
+                sb.deleteCharAt(sb.length() - 1);
+        }
+        while(sb.length() < 3) {
+         sb.append(sb.charAt(sb.length()-1));
+        }
+
+        String answer = "";
+
+        answer = sb.toString();
+        return answer;
+    }
+}
