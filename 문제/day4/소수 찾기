@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+
+		ArrayList<Boolean> al = new ArrayList<Boolean>(n+1);
+        ArrayList<Integer> al1 = new ArrayList<Integer>();
+		al.add(false);
+		al.add(false);
+		for(int i=2; i <= n; i++)
+		{
+			al.add(i, true);
+		}
+
+		for ( int i = 2; (i*i) <=n; i++)
+			if(al.get(i))
+				for(int j = (i*i); j<=n; j +=i) al.set(j, false);
+
+        for(int i=1; i<=n; i++){
+            if(al.get(i))
+                answer++;
+        }
+        
+        return answer;
+    }
+}
