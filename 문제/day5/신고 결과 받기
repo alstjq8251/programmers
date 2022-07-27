@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String[] id_list, String[] report, int k) {
+        int[] answer = new int[id_list.length];
+        HashMap<String , Integer> imap = new LinkedHashMap<>();
+        HashMap<String,HashSet<String>> map = new HashMap<>();
+        for(int i=0; i<id_list.length; i++){
+            imap.put(id_list[i],i);
+            map.put(id_list[i], new HashSet());
+        }
+        for(int i=0; i<report.length; i++){
+            String[] operator = report[i].split(" ");
+            map.get(operator[1]).add(operator[0]);
+        }
+        for(int i=0; i<id_list.length; i++){
+            HashSet<String> hs = map.get(id_list[i]);
+            if(hs.size() >= k){
+                Iterator<String> iter = hs.iterator();
+                while(iter.hasNext())
+                    answer[imap.get(iter.next())]++;
+            }
+        }
+        
+        return answer;
+    }
+}
