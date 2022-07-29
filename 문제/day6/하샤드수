@@ -1,0 +1,14 @@
+class Solution {
+    public boolean solution(int x) {
+        boolean answer = true;
+        int standard = x;
+        int t=0;
+        while( standard >0){
+            t += standard%10;
+            standard /= 10;
+        }
+        if(x % t != 0)
+            answer = false;
+        return answer;
+    }
+}
