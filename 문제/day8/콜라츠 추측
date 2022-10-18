@@ -1,0 +1,20 @@
+class Solution {
+    public int solution(int num) {
+        int index = 0;
+        long number =num;
+        while(number != 1){
+            if(number % 2 ==0){
+                number = number/2;
+                index++;
+            }else if(number%2 ==1){ 
+                number = (number * 3)+1;
+                index++;
+            }
+        }
+        if(index >=500){
+            index = -1;
+        }
+        int answer = index;
+        return answer;
+    }
+}
