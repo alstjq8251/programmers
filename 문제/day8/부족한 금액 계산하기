@@ -1,0 +1,17 @@
+class Solution {
+    public long solution(int price, int money, int count) {
+        long answer = -1;
+        long sum=price;
+        long plus =price;
+        for (int i=1; i<count; i++){
+            plus += price;
+            sum += plus;
+        }
+        if(money -sum >=0){
+            answer = 0;
+        }
+        else
+            answer = Math.abs(sum - money);
+        return answer;
+    }
+}
