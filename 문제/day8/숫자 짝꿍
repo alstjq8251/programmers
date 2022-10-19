@@ -43,3 +43,75 @@ class Solution {
         return answer;
     }
 }
+
+
+// 풀고 난 뒤 괜찮다고 생각하는 다른 사람 풀이
+import java.util.Arrays;
+
+class Solution {
+    public String solution(String X, String Y) {
+        String[] arr1 = X.split("");
+        String[] arr2 = Y.split("");
+
+        StringBuilder sb = new StringBuilder();
+
+        int counting = 0;
+        for (int i=0; i<=9; i++) {
+            counting = count(arr1, arr2, String.valueOf(i));
+            if (counting != 0) {
+                for (int j=0; j<counting; j++) {
+                    sb.append(i);
+                }
+            }
+        }
+
+        if (sb.length() == 0) {
+            return "-1";
+        }
+
+        if (!sb.toString().matches(".*[1-9].*")) {
+            return "0";
+        }
+
+        return sb.reverse().toString();
+    }
+
+
+    public int count( String[] arr1, String[] arr2, String num) {
+        int cnt1 = (int) Arrays.stream(arr1).filter(a -> a.equals(num)).count();
+        int cnt2 = (int) Arrays.stream(arr2).filter(a -> a.equals(num)).count();
+        return Math.min(cnt1, cnt2);
+    }
+}
+
+//
+import java.util.*;
+
+class Solution {
+    public String solution(String X, String Y) {
+        StringBuilder sb = new StringBuilder();
+        PriorityQueue<Integer> pq1 = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> pq2 = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (int i=0; i<X.length(); i++) {
+            pq1.offer(X.charAt(i) - '0');
+        }
+        for (int i=0; i<Y.length(); i++) {
+            pq2.offer(Y.charAt(i) - '0');
+        }
+
+        while (!pq1.isEmpty() && !pq2.isEmpty()) {
+            if (pq1.peek() == pq2.peek()) {
+                sb.append(String.valueOf(pq1.poll()));
+                pq2.poll();
+            } else if (pq1.peek() > pq2.peek()) {
+                pq1.poll();
+            } else {
+                pq2.poll();
+            }
+        }
+
+        return sb.toString().equals("") ? "-1" : sb.toString().charAt(0)=='0' ? "0" : sb.toString();
+    }
+}
+// priorityQueue를 활용해서 푸는 방법은 생각치 못했으며 반복문은 한회 줄어듬 // 다만 우선순위큐를 활용하기 위해선 매번 비교해서 정렬해야 할텐데 그 때 성능 저하가 더 발생하지 않을까?
