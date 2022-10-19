@@ -1,0 +1,40 @@
+public class Solution {
+	static int ans[] = new int[3];
+	static int numArr[];
+	static int N;
+	static int resultCount = 0;
+    static boolean isused[];
+	public int solution(int[] number) {
+		N = number.length;
+		numArr = number;
+		isused = new boolean[N];
+		DFS(0, 0);
+		return resultCount;
+	}
+	
+	private static void DFS(int idx, int depth) {
+		if(depth == 3) {
+			int sum = 0;
+			for(int i=0; i<3; i++) {
+				sum += ans[i];
+			}
+			
+			if(sum == 0) {
+				resultCount++;
+			}
+			
+			return;
+		}
+		
+		
+		for(int i=idx; i<N; i++) {
+            if(!isused[i]){
+                ans[depth] = numArr[i];
+                isused[i] = true;
+                DFS(i+1, depth + 1);
+                isused[i] = false;
+            }
+		}
+	} 
+} 
+// 재귀를 사용한 
