@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+class Solution {
+    public String solution(String X, String Y) {
+        StringBuilder sb = new StringBuilder();
+        HashMap<Integer,Long> Xmap = new HashMap<>();
+        HashMap<Integer,Long> Ymap = new HashMap<>();
+        int radix = 10;
+        for(int i=0; i<10; i++){
+            char standard = Character.forDigit (i, radix);
+            Xmap.put(i,X.chars()
+                .filter(ch-> ch == standard)
+                .count());
+            Ymap.put(i, Y.chars()
+                .filter(ch-> ch == standard)
+                .count());
+        }
+        System.out.println(Xmap);
+        System.out.println(Ymap);
+        for(int i=0; i<10; i++){
+            if(Xmap.containsKey(i) && Ymap.containsKey(i)){
+                    long number = Math.min(Xmap.get(i), Ymap.get(i));
+                    for(int y=0; y<number; y++){
+                        sb.append(i);
+                    }
+                }
+        }
+        if(sb.length() == 0){
+            sb.append(-1);
+            String answer = sb.toString();
+            return answer;
+        }
+        else
+            if(sb.charAt(sb.length()-1) == '0')
+                sb.setLength(1);
+        sb.reverse();
+        String answer = sb.toString();
+        return answer;
+    }
+}
