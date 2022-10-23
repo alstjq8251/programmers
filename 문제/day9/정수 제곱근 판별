@@ -1,0 +1,10 @@
+class Solution {
+    public long solution(long n) {
+        double number = Math.ceil(Math.sqrt(n));
+        long answer = -1;
+        if(Math.pow(number,2) == n){
+             answer = (long) Math.pow(number+1, 2);
+        } 
+        return answer;
+    }
+}
