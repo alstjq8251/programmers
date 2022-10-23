@@ -1,0 +1,15 @@
+class Solution {
+    boolean solution(String s) {
+        boolean answer = false;
+        s = s.toLowerCase();
+        long pCount = s.chars()
+            .filter(c -> c == 'p')
+            .count();
+        long yCount = s.chars()
+            .filter(c -> c == 'y')
+            .count();
+        if(pCount == yCount)
+            answer = true;
+        return answer;
+    }
+}
