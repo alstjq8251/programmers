@@ -8,3 +8,13 @@ class Solution {
         return answer;
     }
 }
+// 다른 사람 풀이
+    for(long i=0;i*i<=n;i++){
+        if(i*i==n){
+            answer =(i+1)*(i+1);
+        }else
+            answer =-1;
+    }
+    return answer;
+}
+// 포문에서 종료조건을 제곱으로 판단해서 하는 방법 괜찮다고 
