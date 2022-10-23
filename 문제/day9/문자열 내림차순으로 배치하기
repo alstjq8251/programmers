@@ -8,3 +8,14 @@ class Solution {
         return answer;
     }
 }
+// char [] 로 바꾼뒤 Stringbuilder로 리턴하는 방법
+import java.util.Arrays;
+import java.util.Collections;
+class Solution {
+    public String solution(String s) {
+        char[] temporal = s.toCharArray();
+        Arrays.sort(temporal);
+        String answer = new StringBuilder(new String(temporal)).reverse().toString();
+        return answer;
+    }
+}
