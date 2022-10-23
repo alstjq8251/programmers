@@ -1,0 +1,13 @@
+class Solution {
+    public int solution(int a, int b, int n) {
+        int answer = 0;
+        int sum = 0;
+        while(n >= a){
+            int count = n/a;
+            sum = b*count;
+            n = (n%a) + sum;
+            answer += sum;
+        }
+        return answer;
+    }
+}
