@@ -1,0 +1,40 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] ingredient) {
+        int limit = ingredient.length;
+        Stack<Integer> st = new Stack<>();
+        int answer =0;
+        int count =0;
+        for(int i=0; i<limit; i++){
+            int number = ingredient[i];
+            if(st.empty()){
+                if(number == 1){
+                    count++;
+                    st.push(number);
+                }
+            }else
+                if(number == 1){
+                    if(st.peek() == 3 && st.size()>=3){
+                        int third = st.pop();
+                        if(third-1 == st.peek()){
+                            int second = st.pop();
+                            if(second-1 == st.peek()){
+                                st.pop();
+                                answer++;
+                            }else{
+                                st.push(second);
+                                st.push(third);
+                                st.push(number);
+                            }
+                        }else{
+                            st.push(third);
+                            st.push(number);
+                        }
+                    }else
+                        st.push(number);
+                }else
+                    st.push(number);
+        }
+        return answer;
+    }
+}
