@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
+class Solution {
+    public int[] solution(int N, int[] stages) {
+        Map<Integer,Double> map = new HashMap<>();
+        Queue<Integer> queue = new LinkedList<>();
+        int peopleCount = stages.length;
+        String standard = Arrays.toString(stages);
+        int radix =10;
+        int[] answer = new int[N];
+        List<Integer>numbers = Arrays.stream(stages)                        
+            .boxed()                        
+            .collect(Collectors.toList());
+        for(int i=1; i<=N; i++){
+            int count = Collections.frequency(numbers,i);
+            if(count!=0 && peopleCount != 0){
+                double rate = (double)count/(double)peopleCount;
+                map.put(i,rate);
+                peopleCount -= count;
+            }else
+                queue.add(i);
+        }
+        List<Map.Entry<Integer, Double>> entries = new LinkedList<>(map.entrySet());
+        Collections.sort(entries, (o1,o2) -> o2.getValue().compareTo(o1.getValue()));
+        int count =0;
+        for (Map.Entry<Integer, Double> entry : entries) {
+            answer[count] = entry.getKey();
+            count++;
+        }
+        while(!queue.isEmpty()){
+            answer[count]= queue.poll();
+            count++;
+        }
+        return answer;
+    }
+}
