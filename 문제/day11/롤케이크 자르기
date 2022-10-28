@@ -1,0 +1,61 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] topping) {
+        Map<Integer,Integer> older = new HashMap<>();
+        Set<Integer> younger = new HashSet<>();
+        int answer=0;
+        int count;
+        for(int i=0; i<topping.length; i++){
+            if(older.containsKey(topping[i])){
+                count = older.get(topping[i])+1;
+                older.replace(topping[i],count);
+            }
+            else
+                older.put(topping[i],1);
+        }
+        for(int i=0; i<topping.length; i++){
+            count = older.get(topping[i])-1;
+            if(count == 0){
+                older.remove(topping[i]);
+            }else
+                older.replace(topping[i],count);
+            younger.add(topping[i]);
+            if(older.size() == younger.size())
+                answer++;
+        }
+        // int halfIndex = topping.length/2;
+        // int quarterIndex = halfIndex/2;
+        // int threeQuartersIndex = halfIndex+quarterIndex;
+        // boolean[] check = new boolean[3];
+        // Map<Integer,Integer> map1 = new HashMap<>();
+        // Map<Integer,Integer> map2 = new HashMap<>();
+        // // Set<Integer> set1 =Arrays.stream(Arrays.copyOfRange(topping, 0, i)).boxed().collect(Collectors.toSet());
+        // // Set<Integer> set2 = Arrays.stream(Arrays.copyOfRange(topping, i, topping.length)).boxed().collect(Collectors.toSet());
+        // int answer = 0;
+        // for(int i=halfIndex; i>0; i--){
+        //     int half1 = Arrays.stream(Arrays.copyOfRange(topping, 0, i)).distinct().toArray().length;
+        //     int half2 = Arrays.stream(Arrays.copyOfRange(topping, i, topping.length)).distinct().toArray().length;
+        //     if(half1 == half2)
+        //         answer++;
+        //     // arr1 = Arrays.copyOfRange(topping, 0, i);
+        //     // arr2 = Arrays.copyOfRange(topping, i, topping.length);
+        //     // set1 = Arrays.stream(arr1).boxed().collect(Collectors.toSet());
+        //     // set2 = Arrays.stream(arr2).boxed().collect(Collectors.toSet());
+        //     // if(set1.size() == set2.size())
+        //     //     answer++;
+        // }
+        // for(int i=halfIndex+1; i<topping.length; i++){
+        //     int half1 = Arrays.stream(Arrays.copyOfRange(topping, 0, i)).distinct().toArray().length;
+        //     int half2 = Arrays.stream(Arrays.copyOfRange(topping, i, topping.length)).distinct().toArray().length;
+        //     if(half1 == half2)
+        //         answer++;
+        //     // arr1 = Arrays.copyOfRange(topping, 0, i);
+        //     // arr2 = Arrays.copyOfRange(topping, i, topping.length);
+        //     // set1 = Arrays.stream(arr1).boxed().collect(Collectors.toSet());
+        //     // set2 = Arrays.stream(arr2).boxed().collect(Collectors.toSet());
+        //     // if(set1.size() == set2.size())
+        //     //     answer++;
+        // }
+        return answer;
+    }
+}
