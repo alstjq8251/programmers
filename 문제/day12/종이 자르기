@@ -1,0 +1,11 @@
+class Solution {
+    public int solution(int M, int N) {
+        int answer = 0;
+        answer += N-1;
+        if(M>1){
+            answer *= M;
+            answer += M-1;
+        }
+        return answer;
+    }
+}
