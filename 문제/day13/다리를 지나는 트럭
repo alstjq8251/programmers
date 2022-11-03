@@ -1,0 +1,122 @@
+import java.util.*;
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        int answer = 0;
+        int weight_count =0;
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=0; i<truck_weights.length; i++){
+            if(queue.isEmpty()){
+                weight_count += truck_weights[i];
+                queue.add(truck_weights[i]);
+                answer++;
+            }else{
+                while(true){
+                    if(queue.size() == bridge_length){
+                        weight_count -= queue.poll();
+                    }else if(weight_count + truck_weights[i] <= weight){
+                        weight_count += truck_weights[i];
+                        queue.add(truck_weights[i]);
+                        answer++;
+                        break;
+                    }else if(weight_count + truck_weights[i] > weight){
+                        queue.add(0);
+                        answer++;
+                    }
+                }
+            }
+        }
+        return answer+bridge_length;
+        // for(int i=0; i<truck_weights.length; i++){
+        //     weight_count += truck_weights[i];
+        //     answer++;
+        //     queue.add(i);
+        //     map.put(i,1);
+        //     number = 0;
+        //     일단 트럭을 다리에 올림
+        //     for(int y=queue.peek(); y<i; y++){
+        //         if(weight_count > weight){
+        //            다리가 트럭 무게가 감당이 안될때 i)
+        //             if(number == 0){
+        //                 첫번째 트럭을 계산할 경우 i-i)
+        //                 number = bridge_length-map.get(y);
+        //                 첫번째 트럭 위치부터 다리 끝칸 까지 차이-> number i-i-i)
+        //                 weight_count -= truck_weights[queue.poll()];
+        //                 첫 트럭을 무게에서 뺌
+        //                 answer += number;
+        //                 // 시간을 증가시킨뒤 전진배치 시킨 차이만큼 모든 트럭 재배열하기위해 number 값 계산
+        //             }else{
+        //                 한번 계산한 뒤에도 무게 감당이 안될때 i-ii)
+        //                 number = bridge_length - (map.get(y)+number);
+        //                 첫 트럭 계산시 당길 number를 더한 뒤 차이나는 위치 계산하여 number조정
+        //                 weight_count -= truck_weights[queue.poll()];
+        //                 해당 트럭 무게에서 뺌
+        //                 answer += number;
+        //                 해당 트럭을 빼기 위해 계산한 다리 차이 시간 증가
+        //             }
+        //         }else{
+        //           다리가 트럭 무게가 감당 될때 ii)
+        //             if(map.get(y) < bridge_length)
+        //                트럭이 다리길이 끝까지 진입하지 않았을 때 ii-i)
+        //                 map.replace(y,map.get(y)+number+1);
+        //                트럭을 한칸 앞으로 전진배치시킴 ii-i-1
+        //             else weight_count -= truck_weights[queue.poll()];
+        //                트럭이 다리길이 끝까지 진입했다면 트럭을 다리에서 뺌 ii-ii)
+        //         }
+        //     }  
+        // }
+        -> 위에까지 3일 고민한 후 최종적으로 나왔던 코드였지만 4,5,6,9,13
+        // int between = 0;
+        // if(queue.size() == 1){
+        //     answer += bridge_length - map.get(queue.peek())+1;
+        // }else{
+        //     between = bridge_length - map.get(queue.poll());
+        //     answer += between;
+        //     answer ++;
+        //     int index = queue.size();
+        //     for(int i=1; i<=index; i++){
+        //         int count = map.get(queue.poll());
+        //         if(count + between+i > bridge_length){
+        //             answer -= (count + between+i - bridge_length);
+        //         }
+        //         answer++;
+        //     }
+        //     if()
+        // }
+//         for(int i=0; i<queue.size(); i++){
+            
+//             answer++;
+//         }
+        // int count =0;
+        // int first =0;
+        // while(!queue.isEmpty()){
+        //     if(count == 0){
+        //         count = bridge_length - map.get(queue.poll());
+        //         first = count;
+        //         System.out.println(count);
+        //         answer += count;
+        //     }else{
+        //         count = bridge_length - (first+map.get(queue.poll()));
+        //     }
+        //     answer++;
+        // }
+        // System.out.println(count);
+        // if(count > bridge_length){
+        //     answer -= (count - bridge_length);
+        // }
+        
+//         while(true){
+//             int count =0;
+//             for(int i=queue.peek(); i<truck_weights.length; i++){
+//                 count = map.get(i);
+//                 if(count >= bridge_length){
+//                     queue.poll();
+//                 }
+//                 map.replace(i,count+1);
+//             }
+//             answer++;
+//             if(queue.size() ==0){
+//                 break;
+//             }
+//         }
+    }
+}
