@@ -1,0 +1,38 @@
+class Solution {
+    public String solution(String s) {
+        StringBuilder sb =new StringBuilder();
+        int check = 0;
+        for(int i=0; i<s.length(); i++){
+            if(check == 0){
+                int ascii = (int)s.charAt(i);
+                if(ascii>=97 && ascii <= 122){
+                    sb.append((char)(ascii-32));
+                    check++;
+                }else{
+                    sb.append(s.charAt(i));
+                    check++;
+                }
+                if(s.charAt(i) == ' '){
+                    check =0;
+                }
+            }
+            else {
+                if(s.charAt(i) == ' '){
+                    sb.append(' ');
+                    check =0;
+                }else{
+                    int ascii = (int)s.charAt(i);
+                    if(ascii >= 65 && ascii <= 90){
+                        sb.append((char)(ascii+32));
+                        check++;
+                    }else{
+                    sb.append(s.charAt(i));
+                    check++;
+                    }
+                }
+            }
+        }
+        String answer = sb.toString();
+        return answer;
+    }
+}
