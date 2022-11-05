@@ -36,3 +36,15 @@ class Solution {
         return answer;
     }
 }
+
+    public String solution(String s) {
+        StringBuilder sb= new StringBuilder();
+        String check[] = s.split("");
+        boolean flag = true;
+        for(int i=0; i<s.length(); i++){
+            sb.append(flag ? check[i].toUpperCase() : check[i].toLowerCase());
+            flag = check[i].equals(" ") ? true : false;
+        }
+        return sb.toString();
+        
+        //다른사람 답 보고 참고해서 다시 푼 답 어마어마하게 가독성 , 
