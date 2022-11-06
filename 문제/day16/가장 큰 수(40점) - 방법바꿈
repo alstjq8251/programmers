@@ -1,0 +1,170 @@
+    public String solution(int[] numbers) {
+        int[][] MaxNumber = new int[10][numbers.length];
+        Map<Integer,Integer> map = new HashMap<>();
+        List<Integer> al = new ArrayList<>();
+        List<Integer> al2 = new ArrayList<>();
+        int matchNumber=0;
+        int temporalNumber=0;
+        int finalNumber=0;
+        int length=0;
+        int first=0;
+        int origin=0;
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<numbers.length; i++){
+            length = (int)(Math.log10(numbers[i])+1);
+            if(length < 2){
+                first = numbers[i];
+            }else if(length < 3){
+                first = numbers[i]/10;
+            }else if(length<4){
+                first = numbers[i]/100;
+            }else if(length == 4){
+                first = numbers[i]/1000;
+            }
+            if(map.containsKey(first)){
+                origin = map.get(first)+1;
+                MaxNumber[first][origin-1] = numbers[i];
+                map.replace(first,origin);
+            }else{
+                MaxNumber[first][0] = numbers[i];
+                map.put(first,1);
+            }
+        }
+        for(int i=9; i>=0; i--){
+            if(map.containsKey(i)){
+                if(i>0){
+                    matchNumber = 9;
+                    while(matchNumber>-1){
+                        for(int y=0; y<map.get(i); y++){
+                        length = (int)(Math.log10(MaxNumber[i][y])+1);
+                        if(i == 9){
+                            if(i == matchNumber && MaxNumber[i][y] == i){
+                                sb.append(MaxNumber[i][y]);
+                            }else if(length == 2){
+                                if(MaxNumber[i][y]%10 == matchNumber){
+                                    temporalNumber = MaxNumber[i][y];
+                                }
+                            }else if(length == 3){
+                                if((MaxNumber[i][y]%100)/10 == matchNumber){
+                                    al.add(MaxNumber[i][y]);
+                                }
+                            }else
+                                if((MaxNumber[i][y]%1000)/100 == matchNumber){
+                                    al2.add(MaxNumber[i][y]);
+                                }
+                        }else{
+                            if(length == 1){
+                                if(matchNumber == i && MaxNumber[i][y] == i){
+                                    sb.append(MaxNumber[i][y]);
+                                }
+                            }else if(length == 2){
+                                if(MaxNumber[i][y]%10 == matchNumber){
+                                    temporalNumber = MaxNumber[i][y];
+                                }
+                            }else if(length == 3){
+                                if((MaxNumber[i][y]%100)/10 == matchNumber){
+                                    al.add(MaxNumber[i][y]);
+                                }
+                            }else if(length == 4)
+                                if((MaxNumber[i][y]%1000)/100 == matchNumber){
+                                    al2.add(MaxNumber[i][y]);
+                                }
+                            }
+                        }
+                        Collections.sort(al, Collections.reverseOrder());
+                        Collections.sort(al2, Collections.reverseOrder());
+                        if(al2.size() == 0){
+                            if(al.size() == 0){
+                                if(temporalNumber != 0){
+                                    sb.append(temporalNumber);
+                                    temporalNumber=0;
+                                }
+                            }else{
+                                if(temporalNumber!=0){
+                                    for(int z=0; z<al.size(); z++){
+                                        if(temporalNumber/10 >= al.get(z)%10){
+                                            if(temporalNumber/10 == al.get(z)%10){
+                                                if(temporalNumber/10 < temporalNumber%10){
+                                                    sb.append(temporalNumber);
+                                                    temporalNumber =0;
+                                                }
+                                            }else{
+                                                sb.append(temporalNumber);
+                                                temporalNumber =0;
+                                            }
+                                        }
+                                        sb.append(al.get(z));
+                                    }
+                                }else{
+                                    for(int z=0; z<al.size(); z++){
+                                        sb.append(al.get(z));
+                                    }
+                                }
+                                al.clear();
+                            }
+                        }else{
+                            if(al.size() == 0){
+                                if(temporalNumber != 0){
+                                    boolean flag = true;
+                                    for(int y=0; y<al2.size(); y++){
+                                        if(flag){
+                                            if((al2.get(y)%100)/10 > temporalNumber){
+                                                sb.append(al2.get(y));
+                                            }else if((al2.get(y)%100)/10 == temporalNumber){
+                                                if((al2.get(y)%100)%10 >= temporalNumber){
+                                                    if((al2.get(y)% 100)%10 == temporalNumber){
+                                                        if(temporalNumber/10 < temporalNumber%10){
+                                                            sb.append(temporalNumber);
+                                                            temporalNumber =0;
+                                                            flag = false;
+                                                        }
+                                                    }
+                                                }else{
+                                                    sb.append(temporalNumber);
+                                                    temporalNumber =0;
+                                                    flag = false;
+                                                }
+                                            }else{
+                                                if(temporalNumber != 0){
+                                                    sb.append(temporalNumber);
+                                                    temporalNumber =0;
+                                                    flag = false;
+                                                }else{
+                                                    flag = false;
+                                                }
+                                            }
+                                        }else{
+                                            sb.append(al2.get(y));
+                                        }
+                                    }
+                                }else{
+                                    for(int y=0; y<al2.size(); y++){
+                                        sb.append(al2.get(y));
+                                    }
+                                }
+                            }else{
+                                
+                            }
+                        }
+                        if(temporalNumber != 0){
+                            sb.append(temporalNumber);
+                            temporalNumber=0;
+                        }
+                        al.clear();
+                        al2.clear();
+                        matchNumber--;
+                    }
+                }else{
+                    if(sb.length() == 0){
+                        sb.append(0);
+                        break;
+                    }else
+                        for(int y=0; y<map.get(i); y++){
+                            sb.append(0);
+                        }
+                }
+            }
+        }
+        String answer = sb.toString();
+        return answer;
+    }
