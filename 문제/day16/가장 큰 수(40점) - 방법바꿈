@@ -168,3 +168,27 @@
         String answer = sb.toString();
         return answer;
     }
+    
+// 2자리 3자리 4자리 하나하나 세어가며 비교하는건 풀더라도 방법이 아니라고 생각 , -> 각 문자열을 붙여 비교하는 방식이 더 규칙적이라고 보임
+// 문자열로 바꿔 더해가며 사전순으로 비교하는 것이 더 효과적이라고 생각하여 고침(답 봄)
+import java.util.*;
+import java.util.Arrays;
+class Solution {
+    public String solution(int[] numbers) {
+    
+        String [] s = new String[numbers.length];
+        for(int i=0; i<numbers.length; i++){
+            s[i] = "" +numbers[i];
+        }
+        Arrays.sort(s,(o1,o2) ->(o2+o1).compareTo(o1+o2));
+        String answer = "";
+        if(s[0].equals("0")){
+            answer ="0";
+        }else{
+            for(int i=0; i<s.length; i++){
+                answer += s[i];
+            }
+        }
+        return answer;
+    }
+}
