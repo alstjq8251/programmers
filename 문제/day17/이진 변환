@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String s) {
+        Long a = 2l;
+        int[] answer = new int[2];
+        String standard = "";
+        List<String> li = new ArrayList<>();
+        while(a != 1){
+            if(li.size() == 0){
+                standard = s;
+            }else{
+                standard = li.get(li.size()-1);
+            }
+            int count = standard.length();
+            standard = standard.replace("0", "");
+            a = (long)standard.length();
+            count -= a;
+            li.add(Long.toBinaryString(a));
+            a = Long.parseLong(Long.toBinaryString(a));
+            answer[0] += 1;
+            answer[1] += count;
+        }
+        return answer;
+    }
+}
