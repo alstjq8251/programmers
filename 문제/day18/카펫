@@ -1,0 +1,22 @@
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        int number = brown + yellow;
+        int row =1;
+        while(true){
+            int col = number/row;
+            if(col >=3 && row >= 3){
+                int yello_count = (col-2) * (row-2);
+                if(yello_count == yellow){
+                    int brown_color = Math.max(col,row);
+                    int yellow_color = Math.min(col,row);
+                    answer[0] = brown_color;
+                    answer[1] = yellow_color;
+                    break;
+                }
+            }
+            row++;
+        }
+        return answer;
+    }
+}
