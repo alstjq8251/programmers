@@ -1,0 +1,16 @@
+class Solution {
+    public int solution(int n) {
+        int answer = n+1;
+        String n_binary = Integer.toBinaryString(n);
+        n_binary = n_binary.replace("0","");
+        int standard = n_binary.length();
+        while(true){
+            n_binary = Integer.toBinaryString(answer);
+            n_binary = n_binary.replace("0","");
+            if(standard == n_binary.length())
+                break;
+            answer++;
+        }
+        return answer;
+    }
+}
