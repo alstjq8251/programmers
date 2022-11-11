@@ -1,0 +1,46 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int n, String[] words) {
+        Stack<Character> st = new Stack<>();
+        Set<String> set = new HashSet<>();
+        Map<Integer,Integer> map = new HashMap<>();
+        int count=1;
+        for(int i=0; i<words.length; i++){
+            if(st.isEmpty()){
+                st.push(words[i].charAt(words[i].length()-1));
+                map.put(count,1);
+                set.add(words[i]);
+            }else{
+                if(!st.peek().equals(words[i].charAt(0))){
+                    st.clear();
+                    break;
+                }else{
+                    if(set.contains(words[i])){
+                        st.clear();
+                        break;
+                    }else{
+                        if(map.containsKey(count)){
+                            map.replace(count,map.get(count)+1);
+                        }else
+                            map.put(count,1);
+                        set.add(words[i]);
+                        st.push(words[i].charAt(words[i].length()-1));
+                    }
+                }
+            }
+            if(count == n){
+                count =1;
+            }else
+                count++;
+        }
+        int[] answer = new int[2];
+        if(st.isEmpty()){
+            answer[0] = count;
+            if(map.containsKey(count)){
+                answer[1] = map.get(count)+1;
+            }else
+                answer[1] = 1;
+        }
+        return answer;
+    }
+}
