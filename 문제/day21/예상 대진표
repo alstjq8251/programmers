@@ -1,0 +1,22 @@
+class Solution
+{
+    public int solution(int n, int a, int b)
+    {
+        int max = Math.max(a,b);
+        int min = Math.min(a,b);
+        int answer =1;
+        if(max%2 == 0){
+            if(max -1 == min){
+                return answer;
+            }
+        }
+        while(true){
+            a = (a+1)/2;
+            b = (b+1)/2;
+            if(a == b)
+                break;
+            answer++;
+        }
+        return answer;
+    }
+}
