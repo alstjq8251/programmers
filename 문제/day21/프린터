@@ -1,0 +1,54 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] priorities, int location) {
+        Map<Integer,Integer>map = new HashMap<>();
+        Map<Integer,Integer> map1 = new HashMap<>();
+        Queue<Integer>queue = new LinkedList<>();
+        Queue<Integer> queue1 = new LinkedList<>();
+        Stack<Integer> st = new Stack<>();
+        for(int i=0; i<priorities.length; i++){
+            map.put(i,priorities[i]);
+            queue.offer(i);
+            if(map1.containsKey(priorities[i])){
+                map1.replace(priorities[i],map1.get(priorities[i])+1);
+            }else{
+                map1.put(priorities[i],1);
+            }
+        }
+        List<Map.Entry<Integer, Integer>> entryList = new LinkedList<>(map1.entrySet());
+        entryList.sort((o1, o2) -> o2.getKey() -o1.getKey());
+        int count =0;
+        for( Map.Entry<Integer, Integer> elem : entryList ){
+            count = elem.getValue();
+            while(count>0){
+                if(map.get(queue.peek()) == elem.getKey()){
+                    queue1.offer(queue.poll());
+                    count-=1;
+                }else{
+                    queue.offer(queue.poll());
+                }
+            }
+        }
+        // for(int i=li.size()-1; i>=0; i++){
+        //     int count = queue.size();
+        //     while(count >0){
+        //         if(map.get(queue.peek()) == li.get(i)){
+        //             queue1.offer(queue.poll());
+        //         }
+        //         else{
+        //             queue.offer(queue.poll());
+        //         }
+        //     }
+        //     while(!st.isEmpty()){
+        //         queue.offer(st.pop());
+        //     }
+        // }
+        int answer =1;
+        while(!queue1.isEmpty()){
+            if(queue1.poll() == location)
+                break;
+            answer++;
+        }
+        return answer;
+    }
+}
