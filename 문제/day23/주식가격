@@ -1,0 +1,31 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int[] prices) {
+        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> queue1 = new LinkedList<>();
+        int[] answer = new int[prices.length];
+        int count;
+        for(int i=0; i<prices.length; i++){
+            queue1.offer(prices[i]);
+            for(int y=i+1; y<prices.length-1; y++){
+                if(queue1.peek() <= prices[y])
+                    queue1.offer(prices[y]);
+                else
+                    break;
+            }
+            queue.offer(queue1.size());
+            queue1.clear();
+        }
+        count =0;
+        while(!queue.isEmpty()){
+            if(queue.peek() == 0){
+                answer[count] =queue.poll()+1;
+            }else{
+                answer[count] = queue.poll();
+            }
+            count++;
+        }
+        answer[prices.length-1] = 0;
+        return answer;
+    }
+}
