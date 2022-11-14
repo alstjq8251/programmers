@@ -1,0 +1,43 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        int count=0;
+        int number=0;
+        Stack<Integer> st = new Stack<>();
+        List<Integer> li = new ArrayList<>();
+        boolean check;
+        int index;
+        while(true){
+            if(number >= progresses.length)
+                break;
+            else{
+                index =0;
+                check = true;
+                count = 100 - progresses[number];
+                count = (int)Math.ceil((double)count/speeds[number]);
+                for(int i=number; i<progresses.length; i++){
+                    progresses[i] += (speeds[i]*count);
+                    if(!st.isEmpty()){
+                        if(st.peek() >= 100&& progresses[i] >= 100 && check){
+                            number++;
+                            index++;
+                        }else if(st.peek() < 100 || progresses[i] < 100){
+                            check = false;
+                        }
+                    }else{
+                        st.push(progresses[i]);
+                        number++;
+                        index++;
+                    }
+                }
+                st.clear();
+                li.add(index);
+            }
+        }
+        int[] answer = new int[li.size()];
+        for(int i=0; i<li.size(); i++){
+            answer[i] = li.get(i);
+        }
+        return answer;
+    }
+}
