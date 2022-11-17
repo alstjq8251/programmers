@@ -1,0 +1,77 @@
+import java.util.*;
+import java.util.stream.Collectors;
+class Solution {
+    public boolean solution(String[] phone_book) {
+        Map<String,String> map = new HashMap<>();
+        for(int i=0; i<phone_book.length; i++){
+            map.put(phone_book[i],"prefix");
+        }
+        for(int i=0; i<phone_book.length; i++){
+            for(int y=1; y<phone_book[i].length(); y++){
+                if(map.containsKey(phone_book[i].substring(0,y)))
+                    return false;
+            }
+        }
+        return true;
+        
+        //다른풀이 
+        // sorting정렬 자체가 각 문자열마다의 unicode를 비교하기때문에 길이순이 아니라 사전순으로 비교하여 앞, 뒤만 비교할 시 풀이가능
+        // soring정렬에 대해서 
+        class Solution {
+    public boolean solution(String[] phoneBook) {
+        Arrays.sort(phoneBook);
+        for (int i = 0; i < phoneBook.length - 1; i++){        
+            if (phoneBook[i + 1].startsWith(phoneBook[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+        
+        //하단의 풀이는 효율성 4번에서 통과하질 못함 이중for문으로 풀시 시간복잡도때문에 통과하질 못함
+        // String[]copy_book = new String[phone_book.length];
+        // boolean answer = true;
+        // Map<Integer,Integer> map = new HashMap<>();
+        // Map<String,Integer> map1 = new HashMap<>();
+        // int length =0;
+        // int max = 0;
+        // for(int i=0; i<phone_book.length; i++){
+        //     length = phone_book[i].length();
+        //     map.put(i,length);
+        //     if(map1.containsKey(phone_book[i]))
+        //        map1.replace(phone_book[i],map1.get(phone_book[i])+1);
+        //     else
+        //        map1.put(phone_book[i],1);
+        // }
+        // List<Map.Entry<Integer, Integer>> entryList = new LinkedList<>(map.entrySet());  
+        // entryList.sort(Map.Entry.comparingByValue());
+        // int count =0;
+        // for(Map.Entry<Integer,Integer> entries : entryList){
+        //     copy_book[count] = phone_book[entries.getKey()];
+        //     count++;
+        // }
+        // for(int i=0; i<copy_book.length; i++){
+        //     if()
+        // }
+        // if(copy_book[0].length() == copy_book[copy_book.length-1].length())
+        //     return answer;
+        // while(answer){
+        //     if(count >= phone_book.length-1)
+        //         break;
+        //     else{
+        //         for(int i=count+map1.get(copy_book[count].length()); i<copy_book.length; i++){
+        //             // if(copy_book[i].charAt(0)-'0'==check.charAt(0)-'0'){
+        //                 if(copy_book[i].startsWith(copy_book[count])){
+        //                     answer = false;
+        //                     break;
+        //                 }
+        //             // }
+        //         }
+        //         map1.replace(copy_book[count].length(),map1.get(copy_book[count].length())-1);
+        //         count++;
+        //     }
+        // }
+        // return answer;
+    }
+}
