@@ -1,0 +1,24 @@
+import java.util.*;
+class Solution {
+    public String solution(String number, int k) {
+        StringBuilder sb = new StringBuilder();
+        int count =0;
+        int length = number.length() - k;
+        int max;
+        for(int i=1; i<=length; i++){
+            max=0;
+            for(int y=count; y<k+i; y++){
+                if(max<number.charAt(y) - '0'){
+                    max = number.charAt(y) - '0';
+                    count = y+1;
+                }
+            }
+            sb.append(max);
+        }
+        return sb.toString();
+    }
+}
+// 다른 답 참조해서 해결함
+// 몇개까지 만들어야 할지는 구했으나 최댓값, 시작값, 종료값을 어떻게 만들어야할지 감을 못잡았음
+// 잘라낼 k와 잘라진 다음 만들어질 문자열의 길이가 총 문자열의 길이가 되므로 k+i라고 할시 끝까지 탐색가능
+// 시작조건은 max 값을 기준으로 재정렬해야 하나 Math.max는 최댓값의 위치를 잡아낼 
