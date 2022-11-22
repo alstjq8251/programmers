@@ -1,0 +1,35 @@
+import java.util.*;
+class Solution {
+    public int solution(int cacheSize, String[] cities) {
+        List<String> arr = new ArrayList<>();
+        int answer=0;
+        if(cacheSize>0){
+            for(int i=0; i<cacheSize; i++){
+                if(i == cities.length)
+                    break;
+                else{
+                    if(arr.contains(cities[i].toLowerCase())){
+                        arr.remove(cities[i].toLowerCase());
+                        answer++;
+                    }
+                    arr.add(cities[i].toLowerCase());
+                }
+            }
+            answer += arr.size()*5;
+            for(int i=cacheSize; i<cities.length; i++){
+                if(arr.contains(cities[i].toLowerCase())){
+                    answer +=1;
+                    arr.remove(cities[i].toLowerCase());
+                }
+                else{
+                    answer += 5;
+                }
+                if(arr.size() >= cacheSize)
+                    arr.remove(0);
+                arr.add(cities[i].toLowerCase());
+            }
+        }else
+            answer = 5 * cities.length;
+        return answer;
+    }
+}
