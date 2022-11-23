@@ -1,0 +1,42 @@
+import java.util.*;
+class Solution {
+    public int solution(String s) {
+        List<Character> arr = new ArrayList<>();
+        Stack<Character> st = new Stack<>();
+        for(int i=0; i<s.length(); i++){
+            arr.add(s.charAt(i));
+        }
+        int count =0;
+        int answer = 0;
+        int check =0;
+        while(count<s.length()){
+            for(int i=0; i<arr.size(); i++){
+                if(arr.get(i) == ']' || arr.get(i) == '}' || arr.get(i) == ')'){
+                    if(st.isEmpty())
+                        break;
+                    else
+                        if(arr.get(i) == ']' && st.peek() == '['){
+                            check++;
+                            st.pop();
+                        }else if(arr.get(i) == '}' && st.peek() == '{'){
+                            check++;
+                            st.pop();  
+                        }else if(arr.get(i) == ')' && st.peek() == '('){
+                            check++;
+                            st.pop();
+                        }
+                }
+                else{
+                    st.push(arr.get(i));
+                }
+            }
+            if(check == s.length()/2 && s.length() %2 == 0)
+                answer++;
+            check=0;
+            arr.add(arr.get(0));
+            arr.remove(0);
+            count++;
+        }
+        return answer;
+    }
+}
