@@ -1,0 +1,49 @@
+import java.util.*;
+class Solution {
+    // int answer = 0;
+    // boolean [] check;
+    // int count =0;
+    // Map<String,String> map = new HashMap<>();
+    // Set<String> set = new HashSet<>();
+    public int solution(String[][] clothes) {
+        Map<String,Integer> map = new HashMap<>();
+        int count =0;
+        int answer=1;
+        for(int i=0; i<clothes.length; i++){
+            count = map.getOrDefault(clothes[i][1] , 0);
+            map.put(clothes[i][1], count+1);
+        }
+        Set<String> set = map.keySet();
+        for(String type : set){
+            answer *= map.get(type)+1;
+        }
+        return answer-1;
+        // Map<String,String> map = new HashMap<>();
+        // Set<String> st = new HashSet<>();
+        // for(int i=0; i<clothes.length; i++){
+        //     if(clothes[i][1] == )
+        //     set.add(clothes[i][1]);
+        // }
+    //     check = new boolean[clothes.length];
+    //     curstion("","",clothes,0);
+    //     return set.size();
+    // }
+    // public void curstion(String str,String str_type,String[][] clothes,int depth){
+    //     if(depth == clothes.length){
+    //         return;
+    //     }
+    //     else{
+    //         if(!map.containsKey(str_type)){
+    //             map.put(str_type,str);
+    //             set.add(str);
+    //         }
+    //     }
+    //     for(int i=0; i<clothes.length; i++){
+    //         if(!check[i]){
+    //             check[i] = true;
+    //             curstion(str+clothes[i][0],clothes[i][1],clothes,depth+1);
+    //             check[i] = false;
+    //         }
+    //     }
+    }
+}
