@@ -1,0 +1,34 @@
+import java.util.*;
+class Solution {
+    public int solution(int k, int m, int[] score) {
+        int [] apple = new int[10];
+        int count =0;
+        int length = score.length;
+        Stack<Integer> st = new Stack<>();
+        for(int i=0; i<score.length; i++){
+            apple[score[i]]++;
+            count = Math.max(count,score[i]);
+        }
+        int answer = 0;
+        while(true){
+            if(length < m)
+                break;
+            if(count == 0 )
+                break;
+            if(apple[count] > 0){
+                while(apple[count]>0){
+                    st.push(count);
+                    apple[count]--; 
+                    if(st.size() == m){
+                        answer += st.pop() * m;
+                        st.clear();
+                        length -= m;
+                    }
+                }
+            }else{
+                count--;
+            }
+        }
+        return answer;
+    }
+}
