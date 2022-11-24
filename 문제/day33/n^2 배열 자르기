@@ -1,0 +1,19 @@
+class Solution {
+    public int[] solution(int n, long left, long right) {
+        int count = 0;
+        long limit = right-left+1;
+        int[] answer = new int [(int)(right-left+1)];
+        long x=left/n;
+        long y=left%n;
+        while(count< limit){
+            answer[count]= (int)Math.max(x,y)+1;
+            count++;
+            y++;
+            if(y == n){
+                x++;
+                y =0;
+            }
+        }
+        return answer;
+    }
+}
