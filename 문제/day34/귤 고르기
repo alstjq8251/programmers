@@ -1,0 +1,23 @@
+import java.util.*;
+class Solution {
+    public int solution(int k, int[] tangerine) {
+        int differ = tangerine.length-k;
+        int number =0;
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0; i<tangerine.length; i++){
+            number = map.getOrDefault(tangerine[i],0);
+            map.put(tangerine[i],number+1);
+        }
+        List<Integer> keySet = new ArrayList<>(map.keySet());
+        keySet.sort((o1, o2) -> map.get(o1) - map.get(o2));
+        for(Integer key : keySet){
+            differ -= map.get(key);
+            if(differ < 0)
+                break; 
+            else
+                map.remove(key);
+        }
+        int answer = map.size();
+        return answer;
+    }
+}
