@@ -1,0 +1,31 @@
+import java.util.*;
+class Solution {
+    public String[] solution(String[] record) {
+        Map<String,String> map = new HashMap<>();
+        List<String> arr1 = new ArrayList<>();
+        int length = record.length;
+        String name = "";
+        List<String> arr;
+        for(int i=record.length-1; i>=0; i--){
+            arr = new ArrayList(Arrays.asList(record[i].split(" ")));
+            if(arr.size() > 2){
+                name = map.getOrDefault(arr.get(1),arr.get(2));
+                map.put(arr.get(1),name);
+                if(arr.get(0).equals("Change")){
+                    length--;
+                }
+            }
+        }
+        String[] answer = new String[length];
+        length =0;
+        for(int i=0; i<record.length; i++){
+            arr = new ArrayList(Arrays.asList(record[i].split(" ")));
+            if(arr.get(0).equals("Enter")){
+                answer[length++] = map.get(arr.get(1)) + "님이 들어왔습니다.";
+            }else if(arr.get(0).equals("Leave")){
+                answer[length++] = map.get(arr.get(1)) + "님이 나갔습니다.";
+            }
+        }
+        return answer;
+    }
+}
