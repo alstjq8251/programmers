@@ -1,0 +1,33 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String s) {
+        s=s.replace("{","");
+        StringBuilder sb =new StringBuilder();
+        Map<Integer,Integer> map = new HashMap<>();
+        String[] number = s.split("}");
+        int count=0;
+        for(int i=0; i<number.length; i++){
+            // System.out.println(number[i]);
+            for(int y=0; y<number[i].length(); y++){
+                if(number[i].charAt(y) == ','){
+                    count = map.getOrDefault(Integer.parseInt(sb.toString()),0);
+                    map.put(Integer.parseInt(sb.toString()),count+1);
+                    sb.setLength(0);
+                }else{
+                    sb.append(number[i].charAt(y));
+                }
+            }
+        }
+        if(sb.length() != 0){
+            count = map.getOrDefault(Integer.parseInt(sb.toString()),0);
+            map.put(Integer.parseInt(sb.toString()),count+1);  
+        }
+        int[] answer = new int[map.size()];
+        List<Integer> keySet = new ArrayList<>(map.keySet());
+        keySet.sort((o1, o2) -> map.get(o2) - map.get(o1));
+        for(int i=0; i<keySet.size(); i++){
+            answer[i] = keySet.get(i);
+        }
+        return answer;
+    }
+}
