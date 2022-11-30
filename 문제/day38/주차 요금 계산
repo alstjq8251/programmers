@@ -1,0 +1,51 @@
+import java.util.*;
+import java.time.*;
+class Solution {
+    public int[] solution(int[] fees, String[] records) {
+        Map<String,String> map = new HashMap<>();
+        Map<Integer,Integer> timeMap = new HashMap<>();
+        int number =0;
+        String[] carInfo;
+        String [] time;
+        LocalTime outTime;
+        LocalTime inTime;
+        LocalTime finalTime = LocalTime.of(23,59,00);
+        Duration du;
+        int parkTime;
+        int totalTime;
+        for(int i=0; i<records.length; i++){
+            carInfo = records[i].split(" ");
+            if(carInfo[2].equals("OUT")){
+                time = map.get(carInfo[1]).split(":");
+                inTime = LocalTime.of(Integer.parseInt(time[0]),Integer.parseInt(time[1]),0);
+                outTime = LocalTime.of(Integer.parseInt(carInfo[0].split(":")[0]),Integer.parseInt(carInfo[0].split(":")[1]),0);
+                du = Duration.between(inTime, outTime);
+                map.remove(carInfo[1]);
+                totalTime = timeMap.getOrDefault(Integer.parseInt(carInfo[1]),0);
+                timeMap.put(Integer.parseInt(carInfo[1]),(int)du.getSeconds()/60+totalTime);
+            }else{
+                map.put(carInfo[1],carInfo[0]);
+            }
+        }
+        for(String key : map.keySet() ){
+            time = map.get(key).split(":");
+            inTime = LocalTime.of(Integer.parseInt(time[0]),Integer.parseInt(time[1]),0);
+            du = Duration.between(inTime, finalTime);
+            totalTime = timeMap.getOrDefault(Integer.parseInt(key),0);
+            timeMap.put(Integer.parseInt(key),(int)du.getSeconds()/60+totalTime);
+        }
+        for(Integer key : timeMap.keySet()){
+            totalTime = timeMap.get(key);
+            parkTime = 0;
+            parkTime += totalTime/60 > fees[0]/60? (int)Math.ceil((double)(totalTime-fees[0])/fees[2])*fees[3]+fees[1] : totalTime > fees[0] ? (int)Math.ceil((double)(totalTime-fees[0])/fees[2])*fees[3]+fees[1] : fees[1];
+            timeMap.replace(key,parkTime);
+        }
+        List<Integer> arr = new ArrayList<>(timeMap.keySet());
+        arr.sort((s1, s2) -> s1.compareTo(s2));
+        int[] answer = new int[arr.size()];
+        for(int i=0; i<arr.size(); i++){
+            answer[i] = timeMap.get(arr.get(i));
+        }
+        return answer;
+    }
+}
