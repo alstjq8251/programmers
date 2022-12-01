@@ -1,0 +1,33 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String msg) {
+        StringBuilder sb = new StringBuilder();
+        Map<String,Integer> map = new HashMap<>();
+        List<Integer> arr = new ArrayList<>();
+        for(int i = 65; i<=90;i++){
+            map.put((char)i +"",i-64);
+        }
+        
+        int start = 27;
+        int length;
+        for(int i=0; i<msg.length(); i++){
+            length = sb.length();
+            sb.append(msg.charAt(i));
+            if(!map.containsKey(sb.toString())){
+                arr.add(map.get(sb.substring(0,length)));
+                map.put(sb.toString(),start++);
+                sb.setLength(0);
+                sb.append(msg.charAt(i));
+            }
+        }
+        if(sb.length() != 0){
+            int number = map.getOrDefault(sb.toString(),start);
+            arr.add(number);
+        }
+        int[] answer = new int[arr.size()];
+        for(int i=0; i<arr.size(); i++){
+            answer[i] = arr.get(i);
+        }
+        return answer;
+    }
+}
