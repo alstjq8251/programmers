@@ -1,0 +1,69 @@
+   import java.util.*;
+class Solution {
+    public long solution(int k, int d) {
+        int MaxYdistance;
+        long answer=0;
+        for(int i=0; i<=d; i+=k){
+            MaxYdistance= MaxY(i,d);
+            answer+= countY(MaxYdistance,k);
+        }
+        return answer;
+    }
+    private int MaxY(int nowX, int distance){
+        long distance2 = (long)Math.pow(distance,2);
+        long nowXX = (long)Math.pow(nowX,2);
+        return (int)Math.sqrt(distance2-nowXX);
+    }
+    private int countY(int MaxY, int differ){
+        return (MaxY/differ)+1;
+    }
+}
+   }
+    //     long answer = 0;
+    //     int left = 0;
+    //     Map<Integer,Set<Integer>>map = new HashMap<>();
+    //     // Set<Integer> set;
+    //     boolean check = true;
+    //     int number;
+    //     for(int i=0; i<=d; i+=k){
+    //         // Set<Integer> set = map.getOrDefault(i,new HashSet<>());
+    //         for(int y=0; y<=d; y+=k){
+    //             if(Math.pow(d,2) >= Math.pow(i,2) + Math.pow(y,2)){
+    //                 // if(!set.contains(y)){
+    //                     answer++;
+    //                         // set.add(i);
+    //                         // map.put(y,set);
+    //                     // }
+    //                 // }
+    //             }else if(i==y)
+    //                 check=false;
+    //         }
+    //         if(!check){
+    //             left=i;
+    //             break;
+    //         }
+    //     }
+    // answer+=d-left;
+//         while(left <= d){
+//             // set = new HashSet<>();
+//             for(int i=0; i<=d; i+=k){
+//                 if(Math.pow(d,2) >= Math.pow(left,2) + Math.pow(i,2)){
+//                     if(left == i){
+//                         answer++;
+//                     }else{
+//                         set = map.getOrDefault(i,new HashSet());
+//                         if(set.add(left)){
+//                             map.put(i,set);
+//                             answer+=2;
+//                         }
+//                     }
+//                 }else{
+//                     check=false;
+//                     break;
+//                 }
+//             }
+//             if(!check)
+//                 break;
+//             left+= k;
+//         }
+        
