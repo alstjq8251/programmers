@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int solution(int n, int k) {
+        String number = Integer.toString(n,k);
+        while(number.contains("00")){
+            number = number.replace("00","0");
+        }
+        String []char1 = number.split("0");
+        long max=0;
+        int answer=0;
+        for(int i=0; i<char1.length; i++){
+            if(char1[i] != " "&&Long.parseLong(char1[i])>1){
+                answer++;
+                max = Long.parseLong(char1[i]);
+                int sqrt = (int)Math.sqrt(max);
+                for(int y=2; y<=sqrt; y++){
+                    if(max % y == 0){
+                        answer--;
+                        break;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+}
