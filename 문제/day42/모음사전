@@ -1,0 +1,24 @@
+class Solution {
+    String[] words;
+    int answer=0;
+    int number;
+    public int solution(String word) {
+        words= "AEIOU".split("");
+        number=0;
+        DFS("",word);
+        return answer;
+    }
+    private void DFS(String title,String word){
+        if(title.length() > 5)
+            return;
+        if(title.equals(word)){
+            answer=number;
+            return;
+        }
+        number++;
+        for(int i=0; i<5; i++){
+            DFS(title+words[i],word);
+            // System.out.println(title);
+        }
+    }
+}
