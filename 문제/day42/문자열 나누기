@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+    public int solution(String s) {
+        Stack<Character> st = new Stack<>();
+        List<Character> arr = new ArrayList<>();
+        int answer = 0;
+        for(int i=0; i<s.length(); i++){
+            if(st.isEmpty())
+                st.push(s.charAt(i));
+            else{
+                if(st.peek() != s.charAt(i)){
+                    arr.add(s.charAt(i));
+                    if(st.size() == arr.size()){
+                        st.clear();
+                        arr.clear();
+                        answer++;
+                    }
+                }
+                else{
+                    st.push(s.charAt(i));
+                }
+            }
+        }
+        if(st.size() != 0)
+            answer++;
+        return answer;
+    }
+}
