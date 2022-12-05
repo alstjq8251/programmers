@@ -1,0 +1,52 @@
+import java.util.*;
+class Solution {
+    public int solution(String[] want, int[] number, String[] discount) {
+        Map<String,Integer> map = new HashMap<>();
+        Map<String,Integer> check = new HashMap<>();
+        int count;
+        for(int i=0; i<want.length; i++){
+            check.put(want[i],number[i]);
+        }
+        int answer = 0;
+        int loop=0;
+        for(int i=0; i<discount.length; i++){
+            if(discount.length-i <= 9)
+                break;
+            else{
+                if(check.containsKey(discount[i])){
+                    loop=0;
+                    for(int y=i; y<discount.length; y++){
+                        if(loop > 9)
+                            break;
+                        else{
+                            if(check.containsKey(discount[y])){
+                                loop++;
+                                count = map.getOrDefault(discount[y],0);
+                                map.put(discount[y],count+1);
+                            }else
+                                break;
+                        }
+                    }
+                }
+                if(map.size() == check.size()){
+                    for( String key : map.keySet() ){
+                        if(map.get(key)!=check.get(key)){
+                            map.clear();
+                            break;
+                        }
+                    }
+                    if(map.size() == check.size())
+                        answer++;
+                }
+                map.clear();
+            }
+        }
+        // if(map.size() == 0)
+        //     return answer;
+        // for( String key : map.keySet() ){
+        //     if(map.get(key)!=check.get(key))
+        //         return answer;
+        // }
+        return answer;
+    }
+}
