@@ -1,0 +1,39 @@
+class Solution {
+    int [][][][]check = new int[11][11][11][11];
+    String[] words;
+    int left = 5;
+    int right = 5;
+    int answer=0;
+    int[] dx = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
+    public int solution(String dirs) {
+        words = dirs.split("");
+        for(int i=0; i<dirs.length(); i++){
+            move(words[i]);
+        }
+        return answer;
+    }
+    private void move(String direction){
+        int dr = 0;
+        switch(direction){
+            case "U" : dr=0;
+                break;
+            case "D" : dr=1;
+                break;
+            case "R" : dr=2;
+                break;
+            case "L" : dr=3;
+                break;
+        }
+        int next_left =left + dx[dr];
+        int next_right =right + dy[dr];
+        if(0 > next_left || next_left > 10 || 0 > next_right || next_right>10) return;
+        if(check[left][right][next_left][next_right] == 0){
+            check[left][right][next_left][next_right] =1;
+            check[next_left][next_right][left][right] =1;
+            answer++;
+        }
+        left = next_left;
+        right = next_right;
+    } 
+}
