@@ -1,0 +1,53 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int n, long k){
+        int answer[] = new int[n];
+        List<Integer> arr = new ArrayList<>();
+        long total=1;
+        for(int i=1; i<=n; i++){
+            arr.add(i);
+            total*=i;
+        }
+        k--; 
+        int idx =0;
+        while(n != idx){
+            total /= n-idx;
+            answer[idx++] = arr.remove((int)(k/total));
+            k %= total;
+        }
+        return answer;
+    }
+    재귀함수로 풀게되면(완전탐색)시간초과를 해결하지 못한다.
+    상단의 방법은 전체를 섹터별로 나눠서 계산하는데 나올수있는 모든 경우의 수 !n 
+    요소별로 나오는 섹터 구분 / 해당하는 구역에서 몇번째 인덱스일지
+    이런 로직으로 구성하게 되는데 쉽지 않음 - 나중에 다시해보자
+    // List<Integer> li = new ArrayList<>();
+    // int count =0;
+    // boolean [] check;
+    // public int[] solution(int n, long k) {
+    //     check = new boolean[n+1];
+    //     int answer[] = new int[n];
+    //     curstion(answer,n,k);
+    //     return answer;
+    // }
+    // public void curstion(int[] answer , int n, long k){
+    //     if(li.size() == n){
+    //         count++;
+    //         if(count == k){
+    //             for(int i=0; i<li.size(); i++){
+    //                 answer[i] = li.get(i);
+    //             }
+    //         }
+    //         return ;
+    //     }
+    //     for(int i=1; i<=n; i++){
+    //         if(!check[i]){
+    //             check[i] = true;
+    //             li.add(i);
+    //             curstion(answer,n,k);
+    //             li.remove(li.size()-1);
+    //             check[i] = false;
+    //         }
+    //     }
+    // }
+}ㅈ
