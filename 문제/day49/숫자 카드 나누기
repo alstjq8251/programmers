@@ -65,3 +65,93 @@ class Solution {
         return answer;
     }
 }
+
+//상단은 50점인가? 아래가 정답
+
+import java.util.*;
+class Solution {
+    public long solution(int[] arrayA, int[] arrayB) {
+        int answer = 0;
+        int maxA=2;
+        int maxB=2;
+        boolean checkA = true;
+        boolean checkB = true;
+        int lowA=100000;
+        int lowB=100000;
+        int maxSum=0;
+        int maxSum2=0;
+        for(int i=0; i<arrayA.length; i++){
+            lowA=Math.min(lowA,arrayA[i]);
+            lowB=Math.min(lowB,arrayB[i]);
+        }
+        while(maxA <= lowA){
+            checkA=true;
+            for(int i=0; i<arrayA.length; i++){
+                if(arrayA[i]% maxA !=0){
+                    checkA=false;
+                    break;
+                }
+            }
+            if(checkA)
+                maxSum=maxA;
+            maxA++;
+        }
+        while(maxB <= lowB){
+            checkB=true;
+            for(int i=0; i<arrayA.length; i++){
+                if(arrayB[i]% maxB !=0){
+                    checkB=false;
+                    break;
+                }
+            }
+            if(checkB)
+                maxSum2=maxB;
+            maxB++;
+        }
+        List<Integer> arr = new ArrayList<>();
+        for(int i=2; i<=maxSum; i++){
+            checkA=true;
+            checkB=false;
+            if(maxSum%i == 0){
+                for(int y=0; y<arrayA.length; y++){
+                    if(arrayA[y] %i !=0)
+                        checkA=false;
+                    if(arrayB[y]%i == 0)
+                        checkB=true;
+                }
+                if(checkA && !checkB)
+                    arr.add(i);
+            }
+            
+        }
+        List<Integer> arr1 = new ArrayList<>();
+        for(int i=2; i<=maxSum2; i++){
+            checkA=false;
+            checkB=true;
+            if(maxSum2%i == 0){
+                for(int y=0; y<arrayA.length; y++){
+                    if(arrayA[y] %i ==0)
+                        checkA=true;
+                    if(arrayB[y]%i != 0)
+                        checkB=false;
+                }
+                if(!checkA && checkB)
+                    arr1.add(i);
+            }
+        }
+        if(arr.size() == 0&& arr1.size() == 0)
+            return 0;
+        int left=0;
+        int right=0;
+        if(arr.size() !=0){
+            Collections.sort(arr);
+            left = arr.get(arr.size()-1);
+        }
+        if(arr1.size() !=0){
+            Collections.sort(arr1);
+            right= arr1.get(arr1.size()-1);
+        }
+        answer = Math.max(left,right);
+        return answer;
+    }
+}
