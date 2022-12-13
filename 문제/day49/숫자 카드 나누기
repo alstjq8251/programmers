@@ -1,0 +1,67 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] arrayA, int[] arrayB) {
+        int answer = 0;
+        int maxA=2;
+        boolean checkA = true;
+        boolean checkB = true;
+        int lowA=100000;
+        int lowB=100000;
+        int maxSum=0;
+        int maxSum2=0;
+        for(int i=0; i<arrayA.length; i++){
+            lowA=Math.min(lowA,arrayA[i]);
+            lowB=Math.min(lowB,arrayB[i]);
+        }
+        while(maxA != lowA){
+            checkA=true;
+            for(int i=0; i<arrayA.length; i++){
+                if(arraA[i]% MaxA !=0)
+                    checkA=false;
+            }
+            if(checkA)
+                maxSum=maxA;
+            maxA++;
+        }
+        while(maxB != lowB){
+            checkB=true;
+            for(int i=0; i<arrayA.length; i++){
+                if(arraB[i]% MaxB !=0)
+                    checkB=false;
+            }
+            if(checkB)
+                maxSum2=maxB;
+            maxA++;
+        }
+        List<Integer> arr = new ArrayList<>();
+        for(int i=2; i<=maxSum; i++){
+            checkA=true;
+            checkB=true;
+            if(maxSum%i == 0){
+                for(int y=0; y<arrayA.length; y++){
+                    if(arrayA[y] %i !=0)
+                        checkA=false;
+                    if(arrayB[y]%i != 0)
+                        checkB=false;
+                }
+            }
+            if(checkA && !checkB)
+                arr.add(i);
+        }
+        for(int i=2; i<=maxSum; i++){
+            checkA=true;
+            checkB=true;
+            if(maxSum%i == 0){
+                for(int y=0; y<arrayA.length; y++){
+                    if(arrayA[y] %i !=0)
+                        checkA=false;
+                    if(arrayB[y]%i != 0)
+                        checkB=false;
+                }
+            }
+            if(checkA && !checkB)
+                arr.add(i);
+        }
+        return answer;
+    }
+}
