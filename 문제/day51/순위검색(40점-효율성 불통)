@@ -1,0 +1,30 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String[] info, String[] query) {
+        int[] answer = new int[query.length];
+        for(int i=0; i<query.length; i++){
+            query[i] = query[i].replace("and","").replace("  "," ");
+        }
+        int num=0;
+        List<String>arr;
+        List<String>arr1;
+        for(int i=0; i<info.length; i++){
+            arr = Arrays.asList(info[i].split(" "));
+            num = Integer.parseInt(arr.get(4));
+            for(int y=0; y<query.length; y++){
+                arr1 = Arrays.asList(query[y].split(" "));
+                if(num < Integer.parseInt(arr1.get(7))) continue;
+                if(arr1.get(0).equals("-") || arr.get(0).equals(arr1.get(0))){
+                    if(arr1.get(2).equals("-") || arr.get(1).equals(arr1.get(2))){
+                        if(arr1.get(4).equals("-") || arr.get(2).equals(arr1.get(4))){
+                            if(arr1.get(6).equals("-") ||arr.get(3).equals(arr1.get(6))){
+                                answer[y]++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+}
