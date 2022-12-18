@@ -1,0 +1,23 @@
+class Solution {
+    public long[] solution(long begin, long end) {
+        long[] answer = new long[(int)(end-begin)+1];
+        int index=0;
+        if(begin == 1){
+            answer[index++]=0;
+            begin++;
+        }
+        int value=0;
+        for(long i=begin; i<=end; i++){
+            value=1;
+            for(int y=2; y<=Math.sqrt(end); y++){
+                if(i%y == 0){
+                    value = (int)i/y;
+                    if(i/y<=10000000)break;
+                    else value = 1;
+                }
+            }
+            answer[index++]=value;
+        }
+        return answer;
+    }
+}
