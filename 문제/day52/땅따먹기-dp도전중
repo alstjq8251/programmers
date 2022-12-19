@@ -1,0 +1,28 @@
+class Solution {
+    int solution(int[][] land) {
+        int answer = 0;
+        int max=0;
+        int temporalMax=0;
+        int secondMax=0;
+        int temporalSecond=0;
+        for(int i=0; i<land.length; i++){
+            for(int y=0; y<land[i].length; y++){
+                if(i != 0){
+                    if(land[i-1][y] != max){
+                        land[i][y] += max;
+                    }else{
+                        land[i][y] += secondMax;
+                    }
+                }
+                temporalMax = Math.max(land[i][y],temporalMax);
+                if(land[i][y] !=temporalMax)
+                    temporalSecond = land[i][y];
+            }
+            max=temporalMax;
+            secondMax=temporalSecond;
+        }
+        
+        answer = max;
+        return answer;
+    }
+}
