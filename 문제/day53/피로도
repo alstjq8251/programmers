@@ -1,0 +1,31 @@
+import java.util.*;
+class Solution {
+    boolean check[];
+    int[][] dungeon;
+    List<Integer> arr = new ArrayList<>();
+    int loop=0;
+    public int solution(int k, int[][] dungeons) {
+        check = new boolean[dungeons.length];
+        dungeon = dungeons;
+        backDfs(0,k);
+        Collections.sort(arr);
+        int answer = arr.get(arr.size()-1);
+        return answer;
+    }
+    private void backDfs(int depth,int k){
+        arr.add(depth);
+        if(depth == dungeon.length){
+            return ;
+        }
+        if(k <0){
+            return;
+        }
+        for(int i=0; i<dungeon.length; i++){
+            if(!check[i] && k >= dungeon[i][0] ){
+                check[i] = true;
+                backDfs(depth+1, k-dungeon[i][1]);
+                check[i]=false;
+            }
+        }
+    }
+}
