@@ -1,0 +1,38 @@
+import java.util.*;
+class Solution {
+    boolean[][] check;
+    int[] dx = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
+    class Node{
+        int x;
+        int y;
+        int cost;
+        public Node(int x,int y,int cost){
+            this.x =x;
+            this.y= y;
+            this.cost=cost;
+        }
+    }
+    public int solution(int[][] maps) {
+        check = new boolean[maps.length][maps[0].length];
+        Queue<Node> q = new LinkedList<>();
+        q.offer(new Node(0,0,1));
+        check[0][0]=true;
+        while(!q.isEmpty()){
+            Node node = q.poll();
+            if(node.x == maps.length-1 && node.y == maps[0].length-1)
+                return node.cost;
+            for(int i=0; i<4; i++){
+                int nx= node.x+dx[i];
+                int ny= node.y+dy[i];
+                if(nx >=0 && ny >= 0 && nx <= maps.length-1 && ny <= maps[0].length-1){
+                    if(maps[nx][ny] == 1 && !check[nx][ny]){
+                        check[nx][ny]=true;
+                        q.offer(new Node(nx,ny,node.cost+1));
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
