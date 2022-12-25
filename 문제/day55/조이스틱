@@ -1,0 +1,22 @@
+import java.util.*;
+class Solution {
+    public int solution(String name) {
+        int answer = 0;
+        int move = name.length()-1;
+        List<Integer> arr = new ArrayList<>();
+        for(int i=0; i<name.length(); i++){
+            if(name.charAt(i) <= 77){
+                answer += name.charAt(i) - 65;
+            }else
+                answer += 91 - name.charAt(i);
+            int tempA = i+1;
+            while(tempA < name.length() && name.charAt(tempA) == 65){
+                tempA++;
+            }
+            move = Math.min(move, i+(name.length()-tempA)+Math.min(i,name.length()-tempA));
+        }
+        return answer+move;
+    }
+}
+이거 그리디문제지만 그리디가 아니다;; 최선의 답을 구하는 그리디가 최적해를 구해야만 통과하게 되어있었음
+// 해설지를 보고 답을 참고했는데 현재 위치에서 최선을 구하는 로직은 통과못함
