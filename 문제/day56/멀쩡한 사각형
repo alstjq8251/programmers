@@ -1,0 +1,15 @@
+class Solution {
+    public long solution(long w, long h) {
+        int max =0;
+        long ref = gcd(w,h);
+        long answer = (w*h) - (w+h-ref);
+        return answer;
+    }
+    private long gcd(long w, long h){
+        long remain = w%h;
+        if(remain == 0)
+            return h;
+        else 
+            return gcd(h,remain);
+    }
+}
