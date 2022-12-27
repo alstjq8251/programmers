@@ -1,0 +1,62 @@
+import java.util.*;
+class Solution {
+    class Node{
+        int curdot;
+        Map<Integer,Integer> nodeMap;
+        int distance;
+        public Node(int curdot, Map<Integer,Integer> nodeMap,int distance){
+            this.curdot = curdot;
+            this.nodeMap = nodeMap;
+            this.distance = distance;
+        }
+    }
+    public int solution(int N, int[][] road, int K) {
+        int answer=0;
+        boolean[][] check = new boolean[N+1][N+1];
+        Map<Integer,Node> map = new HashMap<>();
+        Map<Integer,Integer> tMap = new HashMap<>();
+        Map<Integer,Integer> map1;
+        for(int i=0; i<road.length; i++){
+            Node node = map.getOrDefault(road[i][0],new Node(road[i][0],new HashMap<>(),0));
+            int distance = node.nodeMap.getOrDefault(road[i][1],road[i][2]);
+            distance = Math.min(distance,road[i][2]);
+            map1 = node.nodeMap;
+            map1.put(road[i][1],distance);
+            map.put(road[i][0],node);
+            if(road[i][0] > road[i][1]){
+                Node node1 = map.getOrDefault(road[i][1],new Node(road[i][0],new HashMap<>(),0));
+                int distance1 = 0;
+                if(node1.nodeMap.size() != 0){
+                    tMap = node1.nodeMap;
+                    tMap.put(road[i][0],distance);
+                    map.put(road[i][1],node1);
+                }
+                map.put(road[i][1],node1);
+            }
+        }
+        List<Integer> arr;
+        int currate;
+        for(int i=1; i<=N; i++){
+            Node node = map.getOrDefault(i,new Node(i,new HashMap<>(),0));
+            if(node.nodeMap.size() != 0){
+                arr = new ArrayList<>(node.nodeMap.keySet());
+                for(int y=0; y<arr.size(); y++){
+                    if(!check[i][arr.get(y)]){
+                        check[i][arr.get(y)]=true;
+                        if(node.nodeMap.get(arr.get(y))+node.distance <= K){
+                            currate=node.nodeMap.get(arr.get(y));
+                            Node node1 = map.getOrDefault(arr.get(y),new Node(y,new HashMap<>(),0));
+                            if(node1.nodeMap.size() != 0){
+                                node1.distance += currate;
+                            }
+                            map.put(arr.get(y),node1);
+                            answer++;
+                        }
+                        check[arr.get(y)][i]=true;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+}
