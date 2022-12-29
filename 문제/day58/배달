@@ -1,0 +1,51 @@
+import java.util.*;
+class Solution {
+    class Node{
+        int start;
+        int distance;
+        public Node(int start,int distance){
+            this.start =start;
+            this.distance= distance;
+        }
+    }
+    int MAX = 500001;
+    public int solution(int N, int[][] road, int K) {
+        int answer=1;
+        boolean[][] check = new boolean[N+1][N+1];
+        int[][] roads = new int[N+1][N+1];
+        PriorityQueue<Node> queue = new PriorityQueue<>((o1, o2) -> o1.distance - o2.distance);
+        // Queue<Node> queue = new LinkedList<>();
+        for(int i = 0; i <=N; i++){
+            for(int j = 0; j <=N; j++){
+                if(i == j) roads[i][j] = 0;
+                else roads[i][j] = MAX;
+            }
+        }
+        for(int i=0; i<road.length; i++){
+            roads[road[i][0]][road[i][1]] = Math.min(roads[road[i][0]][road[i][1]],road[i][2]);
+            roads[road[i][1]][road[i][0]] = roads[road[i][0]][road[i][1]];
+        }
+        int [] dist = new int[N+1];
+        queue.offer(new Node(1,0));
+        while(!queue.isEmpty()){
+            Node node = queue.poll();
+            int start = node.start;
+            int distance = node.distance;
+            for(int i=2; i<=N; i++){
+                if(roads[start][i] + distance<=K && roads[start][i]!=0){
+                    if(!check[start][i]){
+                        check[start][i]=true;
+                        check[i][start]=true;
+                        dist[i] = 1;
+                        queue.offer(new Node(i,roads[start][i]+distance));
+                    }
+                }
+            }
+        }
+        for(int i=2; i<dist.length; i++){
+            if(dist[i] != 0)
+                answer++;
+        }
+        return answer;
+    }
+}
