@@ -1,0 +1,54 @@
+import java.util.*;
+import java.util.regex.Pattern;
+class Solution {
+    public int solution(String str1, String str2) {
+        Map<String,Integer> map = new HashMap<>();
+        Map<String,Integer> map1 = new HashMap<>();
+        Map<String,Integer> map2 = new HashMap<>();
+        int answer=0;
+        StringBuilder sb =new StringBuilder();
+        boolean b;
+        for(int i=0; i<str1.length()-1; i++){
+            sb.append(str1.substring(i,i+2).toLowerCase());
+            b= Pattern.matches("^[a-zA-Z]*$", sb.toString());
+            if(b){
+                map.put(sb.toString(),map.getOrDefault(sb.toString(),0)+1);
+            }
+            sb.setLength(0);
+        }
+        for(int i=0; i<str2.length()-1; i++){
+            sb.append(str2.substring(i,i+2).toLowerCase());
+            b= Pattern.matches("^[a-zA-Z]*$", sb.toString());
+            if(b){
+                if(map.containsKey(sb.toString())){
+                    map1.put(sb.toString(),map1.getOrDefault(sb.toString(),0)+1);
+                }else{
+                    map2.put(sb.toString(),map2.getOrDefault(sb.toString(),0)+1);
+                } 
+            }
+            sb.setLength(0);
+        }
+        double total=0f;
+        double same = 0f;
+        List<String> keys = new ArrayList<>(map.keySet());
+        for(int i=0; i<keys.size(); i++){
+            if(map1.containsKey(keys.get(i))){
+                total += Math.max(map1.get(keys.get(i)),map.get(keys.get(i)));
+                same += Math.min(map1.get(keys.get(i)), map.get(keys.get(i)));
+            }else{
+                total += map.get(keys.get(i));
+            }
+        }
+        if(map1.size() == 0 && map.size() == 0 && map2.size()==0)
+            return 65536;
+        if(same == 0 && total >0)
+            return 0;
+        
+        List<String> key = new ArrayList<>(map2.keySet());
+        for(int i=0; i<key.size(); i++){
+            total+= map2.get(key.get(i));
+        }
+        double rate = same/total;
+        return (int)(rate*65536);
+    }
+}
