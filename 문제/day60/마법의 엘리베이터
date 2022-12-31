@@ -1,0 +1,29 @@
+class Solution {
+    public int solution(int storey) {
+        int answer=0;
+        while(storey > 10){
+            int last = storey%10;
+            int f_last = (storey%100)/10;
+            if(last >= 5){
+                if(last == 5 && f_last <5){
+                    answer += last;
+                }else if(last >5){
+                    storey +=10;
+                    answer += 10-last;
+                }else{
+                    storey += 10;
+                    answer += 10-last;
+                }
+                    
+            }else
+                answer+=last;
+            storey /= 10;
+        }
+        if(storey <=5){
+            answer += storey;
+        }else{
+            answer += (10-storey)+1;
+        }
+        return answer;
+    }
+}
