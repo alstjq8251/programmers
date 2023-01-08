@@ -1,0 +1,32 @@
+class Solution {
+    public long[] solution(long[] numbers) {
+        StringBuilder sb =new StringBuilder();
+        long[] answer = new long[numbers.length];
+        boolean check;
+        int index;
+        for(int i=0; i<numbers.length; i++){
+            sb.append(Long.toBinaryString(numbers[i]));
+            check=true;
+            index=0;
+            if(numbers[i] %2 ==0)
+                answer[i] = numbers[i]+1;
+            else{
+                for(int j=0; j<sb.length(); j++){
+                    if(sb.charAt(j) -'0' ==0){
+                        index = j;
+                        check = false;
+                    }
+                }
+                if(check){
+                    sb.insert(1,'0');
+                }else{
+                    sb.setCharAt(index,'1');
+                    sb.setCharAt(index+1,'0');
+                }
+                answer[i] = Long.parseLong(sb.toString(),2);
+            }
+            sb.setLength(0);
+        }
+        return answer;
+    }
+}
