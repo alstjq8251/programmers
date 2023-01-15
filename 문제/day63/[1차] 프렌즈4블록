@@ -1,0 +1,81 @@
+import java.util.*;
+class Solution {
+    String[][] n_board;
+    boolean[][] c_board;
+    public int solution(int m, int n, String[] board) {
+        StringBuilder sb = new StringBuilder();
+        n_board = new String[m][n];
+        List<String> arr;
+        for(int i=0; i<board.length; i++){
+            arr = new ArrayList<>(Arrays.asList(board[i].split("")));
+            for(int y=0; y<arr.size(); y++){
+                n_board[i][y] = arr.get(y);
+            }
+        }
+        int answer = 0;
+        int block_count = 0;
+        while(true){
+            boolean visit = false;
+            c_board = new boolean[m][n];
+            int start=0;
+            for(int i=0; i<n_board.length; i++){
+                for(int y=0; y<n_board[i].length; y++){
+                    if(i+1 <m && y+1 <n){
+                        check(i,y);
+                        if(i+2 <m && y+1 <n){
+                            check(i+1,y);
+                        }
+                    }
+                }
+                for(int y=0; y<n_board[i].length; y++){
+                    if(c_board[i][y]){
+                        visit=true;
+                        n_board[i][y]="0";
+                    }
+                }
+            }
+            for(int i=n_board.length-1; i>=0; i--){
+                for(int y=0; y<n_board[i].length; y++){
+                    int differ=0;
+                    start = i;
+                    if(n_board[i][y].equals("0")){
+                        while(start>=0){
+                            if(!n_board[start][y].equals("0")){
+                                differ = i-start;
+                                break;
+                            }
+                            start--;
+                        }
+                    }
+                    if(differ!=0){
+                        start = i;
+                        for(int z=0; z<differ; z++){
+                            if(start-differ>=0){
+                                n_board[start][y]= n_board[start-differ][y];
+                                n_board[start-differ][y] = "0";
+                                start--;    
+                            }
+                        }
+                    }
+                }
+            }
+            if(!visit)
+                break;
+        }
+        for(int i=0; i<n_board.length; i++){
+            for(int y=0; y<n_board[i].length; y++){
+                if(n_board[i][y].equals("0"))
+                    answer++;
+            }
+        }
+        return answer;
+    }
+    private void check(int x, int y){
+        if(n_board[x][y].equals(n_board[x][y+1]) && n_board[x+1][y].equals(n_board[x][y]) && n_board[x][y+1].equals(n_board[x+1][y+1]) && !n_board[x][y].equals("0")){
+            c_board[x][y]=true;
+            c_board[x][y+1]=true;
+            c_board[x+1][y]=true;
+            c_board[x+1][y+1]=true;
+        }
+    }
+}
